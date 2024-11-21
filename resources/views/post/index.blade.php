@@ -42,7 +42,11 @@
                         <td>
                             <a href="{{route('post.show', $item->id)}}" class="btn btn-info">Show</a>
                             <a href="{{route('post.edit', $item->id)}}" class="btn btn-warning">Edit</a>
-                             DELETE
+                            <form action="{{route('post.destroy', $item->id)}}" method="POST" style="display: inline" onsubmit="return confirm('Apakah anda yakin?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
