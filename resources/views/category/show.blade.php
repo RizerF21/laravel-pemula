@@ -13,18 +13,17 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Add Category</h1>
                         </div>
-                        <form class="user" method="POST" action="{{route('category.store')}}">
-                            @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control" id="name"
-                                    placeholder="Name Category" name='name'>
-                                    @error('name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    placeholder="Name Category" name='name' value="{{$category->name}}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name"
+                                    placeholder="Name Category" name='slug' value="{{$category->slug}}">
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="active" name='is_active' checked>
+                                    <input class="form-check-input" type="checkbox" id="active" name='is_active' {{$category->is_active ? 'checked' : ''}}>
                                     <label class="form-check-label" for="flexCheckChecked">
                                       Active
                                     </label>
@@ -32,7 +31,6 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Register Account </button>
-                        </form>
                     </div>
                 </div>
             </div>

@@ -39,7 +39,7 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request->name,
             'slug' => \Str::slug($request->name),
-            'is_active' => $request->is_active ? true : false
+            'is_active' => $request->has('is_active') ? true : false
         ]);
 
         return redirect()->route('category.index')->with('success', 'Category created successfully');
@@ -50,7 +50,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::find($id);
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -58,7 +59,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -66,7 +68,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validation = $request->validate([
+            'name' => 'required'
+        ]);
+        Category::where ('id', $id)->update([
+            'name' => $request->name,
+            'slug' => \Str::slug($request->name),
+            'is_active' => $request->has('is_active') ? true : false
+        ]);
+        return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -74,6 +84,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::destroy($id);
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully');
     }
 }

@@ -36,8 +36,16 @@
                     <tr>
                         <td>{{$item->name}}</td>
                         <td>{{$item->slug}}</td>
-                        <td>{{$item->is_active}}</td>
-                        <td>Edit - Delete</td>
+                        <td>{!! $item->is_active ? '<i class="fas fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>' !!}</td>
+                        <td>
+                            <a href="{{route('category.show', $item->id)}}" class="btn btn-info">View</a>
+                            <a href="{{route('category.edit', $item->id)}}" class="btn btn-warning">Edit</a>
+                            <form action="{{route('category.destroy', $item->id)}}" method="POST" style="display: inline" onsubmit="return confirm('Apakah anda yakin?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
